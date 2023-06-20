@@ -1,0 +1,34 @@
+// Override Bootstrap defaults below
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+:root {
+    --bs-body-color: #212529;
+    --bs-body-bg: #fff;
+    --bs-body-color-rgb: 33, 37, 41;
+    --bs-body-bg-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bs-body-color: #ddd;
+        --bs-body-bg: #06090c;
+        --bs-body-color-rgb: 221, 221, 221;
+        --bs-body-bg-rgb: 6, 9, 12;
+    }
+}
+
+body.light {
+    --bs-body-color: #212529;
+    --bs-body-bg: #fff;
+    --bs-body-color-rgb: 33, 37, 41;
+    --bs-body-bg-rgb: 255, 255, 255;
+}
+
+body.dark {
+    --bs-body-color: #ddd;
+    --bs-body-bg: #06090c;
+    --bs-body-color-rgb: 221, 221, 221;
+    --bs-body-bg-rgb: 6, 9, 12;
+}
