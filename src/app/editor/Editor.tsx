@@ -3,9 +3,12 @@ import Viewfinder from './viewfinder/Viewfinder';
 import Scriptwriter from './scriptwriter/Scriptwriter';
 import "./Editor.scss";
 import usePreference from '../../prefs/usePreference';
+import Splitter from './splitter/Splitter';
 
 function Editor() {
-    const [isWide, setWide] = useState(false);
+    const ratioMatcher = window.matchMedia("(min-aspect-ratio: 1/1)");
+
+    const [isWide, setWide] = useState(ratioMatcher.matches);
     
     const isPrioritizingScriptwriter = usePreference("prioritizeScriptwriter");
     const workspaceRatio = usePreference(
@@ -13,7 +16,6 @@ function Editor() {
     );
 
     useEffect(() => {
-        const ratioMatcher = window.matchMedia("(min-aspect-ratio: 1/1)");
         const updateRatio = (ev: MediaQueryList | MediaQueryListEvent) => {
             setWide(ev.matches);
         };
@@ -22,8 +24,9 @@ function Editor() {
         return () => {
             ratioMatcher.removeEventListener("change", updateRatio);
         };
-    }, [ isWide ]);
+    }, [ ratioMatcher, isWide ]);
 
+    const splitter = <Splitter key="tt-splitter" horizontal={isWide} />;
     const viewfinder = <Viewfinder key="tt-viewfinder" horizontal={isWide}
         ratio={ isPrioritizingScriptwriter ? undefined : workspaceRatio } />;
     const scriptwriter = <Scriptwriter key="tt-scriptwriter" horizontal={isWide}
@@ -36,9 +39,11 @@ function Editor() {
             {
                 isPrioritizingScriptwriter ? <>
                     { scriptwriter }
+                    { splitter }
                     { viewfinder }
                 </> : <>
                     { viewfinder }
+                    { splitter }
                     { scriptwriter }
                 </>
             }
