@@ -1,7 +1,7 @@
 {
   "intro": {
     "heading": "Hello, spud!",
-    "text": "Welcome to Tater, a collaborative image translation annotation tool.",
+    "text": "Welcome to $t(common:name), a collaborative image translation annotation tool.",
     "instructions": "To start, you'll first need to create a project or load an existing project."
   },
   "actions": {
@@ -13,9 +13,27 @@
     }
   },
   "page": {
+    "heading": {
+      "verbose": "Page {{page}}: {{filename}}",
+      "plain": "(p. {{page}}) {{filename}}"
+    },
     "empty": "No pages loaded",
-    "count": "Page {{page}}",
     "upload": "Upload page",
     "manage": "Manage pages"
+  },
+  "blob": {
+    "original": "Original text",
+    "actions": "Toggle blob editing actions",
+    "delete": "Delete blob",
+    "translation": {
+      "add": "Add translation",
+      "placeholder": "{{locale}}",
+      "copy": "Copy translation to clipboard",
+      "delete": "Delete translation"
+    },
+    "new": {
+      "panel": "Add blob on next panel",
+      "blob": "Add blob on same panel"
+    }
   }
 }

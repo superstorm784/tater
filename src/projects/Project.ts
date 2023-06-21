@@ -115,7 +115,7 @@ export default class Project {
             fr.readAsArrayBuffer(image);
         }).then(async (v) => {
             const hash = await this.attachImage(v);
-            const page = Page.create(hash);
+            const page = Page.create(this.manifest, image.name, hash);
             this.manifest.pages.push(page);
             return page;
         });

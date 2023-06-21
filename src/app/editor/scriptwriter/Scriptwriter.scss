@@ -1,0 +1,19 @@
+.tt-scriptwriter {
+    height: calc(100vh - var(--tt-toolbar-height));
+    overflow: scroll;
+
+    .tt-scriptwriter-pagebar {
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        left: 0;
+
+        background-color: var(--bs-body-bg);
+        border-bottom: 1px solid var(--bs-secondary-bg);
+        z-index: 100;
+    }
+
+    .tt-scriptwriter-pages {
+        padding: 0 1rem 1rem 1rem;
+    }
+}

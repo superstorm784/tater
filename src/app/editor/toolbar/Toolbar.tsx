@@ -32,10 +32,12 @@ function Toolbar() {
                 <NavDropdown title={t("editor:actions.file.main")} id="tt-toolbar-nav-file">
                     <NavDropdown.Item>{t("editor:actions.file.new")}</NavDropdown.Item>
                     <NavDropdown.Item>{t("editor:actions.file.load")}</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item 
-                        onClick={exportProject}
-                    >{t("editor:actions.file.export")}</NavDropdown.Item>
+                    { (project !== null) && <>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item 
+                            onClick={exportProject}
+                        >{t("editor:actions.file.export")}</NavDropdown.Item>
+                    </> }
                 </NavDropdown>
             </Nav>
         </NavbarCollapse>

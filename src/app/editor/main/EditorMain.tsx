@@ -29,9 +29,9 @@ function EditorMain() {
 
     const splitter = <Splitter key="tt-splitter" horizontal={isWide} />;
     const viewfinder = <Viewfinder key="tt-viewfinder" horizontal={isWide}
-        ratio={ isPrioritizingScriptwriter ? undefined : workspaceRatio } />;
+        ratio={ isPrioritizingScriptwriter ? 1 - workspaceRatio : workspaceRatio } />;
     const scriptwriter = <Scriptwriter key="tt-scriptwriter" horizontal={isWide}
-        ratio={ isPrioritizingScriptwriter ? workspaceRatio : undefined } />;
+        ratio={ isPrioritizingScriptwriter ? workspaceRatio : 1 - workspaceRatio } />;
 
     return <div className={`tt-editor-main ${
         isWide ? "wide" : "tall"

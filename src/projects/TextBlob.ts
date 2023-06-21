@@ -1,5 +1,9 @@
+import Page from "./Page";
+
 export interface SerializedTextBlob {
     boundingBox: [ number, number, number, number ];
+    panelNo: number;
+    blobNo: number;
     original: string;
     translations: Record<string, string>;
 }
@@ -23,11 +27,19 @@ export default class TextBlob {
     pageBottomLeft = 0;
     pageBottomRight = 0;
 
+    page: Page;
+    panelNo: number;
+    blobNo: number;
     original: string;
     translations: Record<string, string> = {};
 
-    static deserialize(serialized: SerializedTextBlob): TextBlob {
-        const blob = new TextBlob(serialized.original);
+    static deserialize(page: Page, serialized: SerializedTextBlob): TextBlob {
+        const blob = new TextBlob(
+            page,
+            serialized.panelNo,
+            serialized.blobNo,
+            serialized.original
+        );
         blob.pageTopLeft = serialized.boundingBox[0];
         blob.pageTopRight = serialized.boundingBox[1];
         blob.pageBottomLeft = serialized.boundingBox[2];
@@ -36,15 +48,26 @@ export default class TextBlob {
         return blob;
     }
 
-    static create(originalText: string): TextBlob {
-        return new TextBlob(originalText);
+    static create(page: Page, panelNo: number, blobNo: number, originalText?: string): TextBlob {
+        return new TextBlob(page, panelNo, blobNo, originalText);
     }
 
-    private constructor(originalText: string) {
+    private constructor(page: Page, panelNo: number, blobNo: number, originalText?: string) {
+        this.page = page;
+        this.panelNo = panelNo;
+        this.blobNo = blobNo;
+        this.original = originalText ?? "";
+        for (const locale of page.manifest.targetLocales ?? []) {
+            this.translations[locale] = "";
+        }
+    }
+
+    setOriginal(originalText: string): TextBlob {
         this.original = originalText;
+        return this;
     }
 
-    addTranslation(locale: string, translation: string): TextBlob {
+    setTranslation(locale: string, translation: string): TextBlob {
         this.translations[locale] = translation;
         return this;
     }
@@ -60,6 +83,8 @@ export default class TextBlob {
                 this.pageTopLeft, this.pageTopRight,
                 this.pageBottomLeft, this.pageBottomRight
             ],
+            panelNo: this.panelNo,
+            blobNo: this.blobNo,
             original: this.original,
             translations: this.translations,
         };

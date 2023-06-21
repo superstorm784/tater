@@ -1,0 +1,40 @@
+.tt-scriptwriter-page {
+    .tt-scriptwriter-page-header {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-top: 8px;
+        padding-bottom: 2px;
+        border-bottom: 1px solid var(--bs-tertiary-color);
+    }
+
+    .tt-scriptwriter-blob-new {
+        display: flex;
+        margin: 8px auto 0 auto;
+        justify-content: space-between;
+        width: 6.5rem;
+    }
+
+    .tt-scriptwriter-blob {
+        align-items: flex-start;
+        margin: 8px 0;
+    }
+
+    .tt-scriptwriter-blob > :first-child {
+        flex: 0;
+        flex-wrap: nowrap;
+        min-width: 8rem;
+    }
+
+    .tt-scriptwriter-blob > :nth-child(2) {
+        flex: 1;
+        margin: 0 8px;
+    }
+
+    .tt-scriptwriter-blob > :nth-child(2) .input-group {
+        margin-bottom: 8px;
+    }
+
+    .tt-scriptwriter-blob > :last-child {
+        flex: initial;
+    }
+}

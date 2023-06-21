@@ -8,13 +8,13 @@ import EditorContext from "../EditorContext";
 
 function ScriptwriterPageBar() {
     const { t } = useTranslation();
-    const { project } = useContext(EditorContext);
+    const { project, updateProject } = useContext(EditorContext);
 
     const pageElements = project?.manifest.pages.map(
         (p, i) => <option
             key={p.internalId}
             value={i}
-        >{t("editor:page.count", { page: i + 1 })}</option>
+        >{t("editor:page.heading.verbose", { page: i + 1, filename: p.imageName })}</option>
     ) ?? [];
     if (project?.manifest.pages.length === 0) {
         pageElements.push(<option key="no-pages"
@@ -26,11 +26,11 @@ function ScriptwriterPageBar() {
     const uploadPage = async () => {
         const file = await requestFiles({ accept: "image/*" });
         if (file) {
-            project?.addNewPage(file);
+            project?.addNewPage(file).then(updateProject);
         }
     }
 
-    return <div className="d-flex">
+    return <div className="tt-scriptwriter-pagebar d-flex">
         <InputGroup className="flex-1 me-2">
             <Button variant="primary">
                 <FontAwesomeIcon icon={faChevronLeft} />
