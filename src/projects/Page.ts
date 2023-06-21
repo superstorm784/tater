@@ -7,6 +7,15 @@ export interface SerializedPage {
 
 export default class Page {
 
+    static lastPageId = 0;
+
+    // The internal ID is ephemeral and doesn't persist across sessions.
+    // Its purpose is to track individual Blobs.
+    // The text (original or translated) or order can't be used here,
+    // since React will re-render the blob if any of those change, which
+    // is very likely.
+    readonly internalId: number = Page.lastPageId++;
+
     blobs: TextBlob[] = [];
     imageHash: string;
 
@@ -25,9 +34,9 @@ export default class Page {
      * @param image 
      * @returns 
      */
-    static async create(page: SerializedPage, imageHash: string): Promise<Page> {
+    static create(imageHash: string): Page {
         const p = new Page(imageHash);
-        p.blobs = page.blobs.map(TextBlob.deserialize);
+        p.blobs = [];
         return p;
     }
 

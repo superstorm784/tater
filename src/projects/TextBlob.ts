@@ -13,7 +13,7 @@ export default class TextBlob {
     // The text (original or translated) or order can't be used here,
     // since React will re-render the blob if any of those change, which
     // is very likely.
-    private internalId: number = TextBlob.lastBlobId++;
+    readonly internalId: number = TextBlob.lastBlobId++;
 
     // All these positional parameters are percent-based.
     // The leftmost pixel of the page is 0%, the rightmost is 100%.

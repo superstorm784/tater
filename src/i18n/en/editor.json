@@ -11,5 +11,11 @@
       "load": "Load project",
       "export": "Export"
     }
+  },
+  "page": {
+    "empty": "No pages loaded",
+    "count": "Page {{page}}",
+    "upload": "Upload page",
+    "manage": "Manage pages"
   }
 }

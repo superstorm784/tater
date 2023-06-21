@@ -2,8 +2,11 @@ import JSZip from "jszip";
 import Manifest from "./Manifest";
 import BufferSerializer from "../util/BufferSerializer";
 import buildError from "../util/buildError";
-import type Page from "./Page";
+import Page from "./Page";
 
+export const FileReadError = buildError(
+    "FileReader read a null file"
+);
 export const ZipManifestMissingError = buildError(
     "manifest.json missing from file"
 );
@@ -23,6 +26,8 @@ export interface ProjectZipExport {
 }
 
 export default class Project {
+
+    static MIME_TYPE = "application/x-taterproj+zip";
 
     zip: JSZip;
     manifest: Manifest;
@@ -96,7 +101,27 @@ export default class Project {
             .map(f => f.name.split("/").pop()?.split(".bin").shift() as string) ?? [];
     }
 
-    async attachImage(image: ArrayBuffer) {
+    async addNewPage(image: File): Promise<Page> {
+        return new Promise<ArrayBuffer>((res, rej) => {
+            const fr = new FileReader();
+            fr.onload = async (e) => {
+                if (e.target == null) {
+                    rej(new FileReadError());
+                } else {
+                    res(e.target.result as ArrayBuffer);
+                }
+            }
+            fr.onerror = rej;
+            fr.readAsArrayBuffer(image);
+        }).then(async (v) => {
+            const hash = await this.attachImage(v);
+            const page = Page.create(hash);
+            this.manifest.pages.push(page);
+            return page;
+        });
+    }
+
+    private async attachImage(image: ArrayBuffer): Promise<string> {
         const imageHash = BufferSerializer.bufToHex(
             await crypto.subtle.digest("SHA-1", image)
         );
@@ -104,6 +129,7 @@ export default class Project {
         // The folder will always be created, but the ? is for
         // type safety.
         this.zip.folder("images")?.file(imageHash + ".bin", image);
+        return imageHash;
     }
 
     async save(): Promise<Blob> {
@@ -156,7 +182,7 @@ export default class Project {
             compression: "DEFLATE",
             compressionOptions: { level: 9 },
             comment: "Created with Tater (https://superstorm784.github.io/tater)",
-            mimeType: "application/x-taterproj+zip"
+            mimeType: Project.MIME_TYPE
         });
     }
 
