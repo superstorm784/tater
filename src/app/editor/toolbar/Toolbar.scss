@@ -1,0 +1,10 @@
+@import "../editor.variables";
+
+.tt-toolbar {
+    height: #{$tt-toolbar-height};
+}
+
+.tt-toolbar .tt-logo {
+    height: #{$tt-toolbar-height - 8px * 2};
+    width: auto;
+}

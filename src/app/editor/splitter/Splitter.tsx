@@ -1,4 +1,5 @@
 import { DragEvent, useState } from "react";
+import "./Splitter.scss";
 import Preferences from "../../../prefs/Preferences";
 
 function clampAndSnap(ratio: number): number {

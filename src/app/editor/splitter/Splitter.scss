@@ -1,0 +1,61 @@
+@import "../editor.variables";
+
+.tt-editor-main {
+    .tt-splitter {
+        flex: initial;
+        width: #{$tt-splitter-width};
+        left: #{$tt-splitter-width / 2 * -1};
+        z-index: 300;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tt-splitter-handle {
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    .tt-splitter-dropzone {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 200;
+    }
+
+    &.wide {
+        .tt-splitter {
+            cursor: col-resize;
+        }
+
+        .tt-splitter-handle {
+            height: 100%;
+            width: #{$tt-splitter-width - 2px};
+        }
+
+        .tt-splitter:hover .tt-splitter-handle {
+            width: 4px;
+            border-left: 1px solid var(--bs-secondary-bg);
+            border-right: 1px solid var(--bs-secondary-bg);
+        }
+    }
+
+    &.tall {
+        .tt-splitter {
+            cursor: row-resize;
+        }
+
+        .tt-splitter-handle {
+            width: 100%;
+            height: #{$tt-splitter-width - 2px};
+        }
+
+        .tt-splitter:hover .tt-splitter-handle {
+            height: 4px;
+            border-top: 1px solid var(--bs-secondary-bg);
+            border-bottom: 1px solid var(--bs-secondary-bg);
+        }
+    }
+}

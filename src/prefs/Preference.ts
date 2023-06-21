@@ -95,7 +95,7 @@ class Preference<U, S> extends EventTarget {
 
     reload(): U {
         const savedValue = window.localStorage.getItem("tt-pref-" + this.name);
-        if ( savedValue ) {
+        if (savedValue) {
             const serialized = JSON.parse(savedValue) as S;
             this.value = this.deserializer(serialized);
             this.loaded = true;

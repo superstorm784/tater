@@ -1,0 +1,13 @@
+@import "../editor.variables";
+
+.tt-editor-intro {
+    margin: 0 auto;
+    max-width: 512px;
+    width: 100vw;
+    height: calc(100vh - var(--tt-toolbar-height));
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}

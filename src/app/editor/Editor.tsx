@@ -1,54 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import Viewfinder from './viewfinder/Viewfinder';
-import Scriptwriter from './scriptwriter/Scriptwriter';
+import { useState } from 'react';
+import Project from '../../projects/Project';
 import "./Editor.scss";
-import usePreference from '../../prefs/usePreference';
-import Splitter from './splitter/Splitter';
+import EditorContext from './EditorContext';
+import EditorIntro from './intro/EditorIntro';
+import EditorMain from './main/EditorMain';
+import Toolbar from './toolbar/Toolbar';
 
 function Editor() {
-    const ratioMatcher = window.matchMedia("(min-aspect-ratio: 1/1)");
+    const [project, setProject] = useState<Project | null>(null);
 
-    const [isWide, setWide] = useState(ratioMatcher.matches);
-    
-    const isPrioritizingScriptwriter = usePreference("prioritizeScriptwriter");
-    const workspaceRatio = usePreference(
-        isWide ? "horizontalWorkspaceRatio" : "verticalWorkspaceRatio"
-    );
-
-    useEffect(() => {
-        const updateRatio = (ev: MediaQueryList | MediaQueryListEvent) => {
-            setWide(ev.matches);
-        };
-        updateRatio(ratioMatcher);
-        ratioMatcher.addEventListener("change", updateRatio);
-        return () => {
-            ratioMatcher.removeEventListener("change", updateRatio);
-        };
-    }, [ ratioMatcher, isWide ]);
-
-    const splitter = <Splitter key="tt-splitter" horizontal={isWide} />;
-    const viewfinder = <Viewfinder key="tt-viewfinder" horizontal={isWide}
-        ratio={ isPrioritizingScriptwriter ? undefined : workspaceRatio } />;
-    const scriptwriter = <Scriptwriter key="tt-scriptwriter" horizontal={isWide}
-        ratio={ isPrioritizingScriptwriter ? workspaceRatio : undefined } />;
-
-    return (
-        <div className={`tt-editor ${
-            isWide ? "wide" : "tall"
-        }`}>
+    return <EditorContext.Provider value={{project}}>
+        <div className="tt-editor">
+            <Toolbar />
             {
-                isPrioritizingScriptwriter ? <>
-                    { scriptwriter }
-                    { splitter }
-                    { viewfinder }
-                </> : <>
-                    { viewfinder }
-                    { splitter }
-                    { scriptwriter }
-                </>
+                project == null ?
+                    <EditorIntro /> :
+                    <EditorMain />
             }
         </div>
-    );
+    </EditorContext.Provider>;
 }
 
 export default Editor;

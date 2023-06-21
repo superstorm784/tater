@@ -1,0 +1,17 @@
+@import "./editor.variables";
+
+.tt-editor-main {
+    display: flex;
+
+    &.wide {
+        flex-direction: row;
+    }
+
+    &.tall {
+        flex-direction: column;
+    }
+
+    > :last-child {
+        flex-grow: 1;
+    }
+}
