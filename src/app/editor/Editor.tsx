@@ -5,19 +5,24 @@ import EditorContext from './EditorContext';
 import EditorIntro from './intro/EditorIntro';
 import EditorMain from './main/EditorMain';
 import Toolbar from './toolbar/Toolbar';
+import Page from '../../projects/Page';
 
 function Editor() {
-    const [project, setProject] = useState<Project | null>(null);
+    const [project, setProject] = useState<Project | undefined>(undefined);
+    const [focusedPage, setFocusedPage] = useState<Page | undefined>(undefined);
     const [lastChange, setLastChange] = useState<number>(Date.now());
 
     return <EditorContext.Provider value={{
         project,
-        lastChange: lastChange,
-        updateProject: () => {
+        setProject: () => {
             console.log("updating project!");
             project?.manifest.bump();
             setLastChange(project?.manifest.lastChange.getTime() ?? Date.now());
-        }
+        },
+        lastChange: lastChange,
+
+        focusedPage,
+        setFocusedPage
     }}>
         <div className="tt-editor">
             <Toolbar />

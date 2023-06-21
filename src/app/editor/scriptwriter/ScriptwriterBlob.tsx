@@ -13,7 +13,7 @@ import EditorContext from "../EditorContext";
 
 function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, blob: TextBlob }) {
     const { t } = useTranslation();
-    const { updateProject } = useContext(EditorContext);
+    const { setProject: updateProject } = useContext(EditorContext);
 
     const updatePanelNo = (e: ChangeEvent<HTMLInputElement>) => {
         blob.panelNo = +e.target.value;
@@ -54,9 +54,6 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
             <Button title={t("editor:blob.translation.copy")}>
                 <FontAwesomeIcon icon={faCopy} />
             </Button>
-            <Button variant="danger" title={t("editor:blob.translation.delete")}>
-                <FontAwesomeIcon icon={faXmark} />
-            </Button>
         </InputGroup>
     );
 
@@ -93,9 +90,6 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
                     value={blob.original}
                     onChange={updateOriginal}
                 />
-                <Button title={t("editor:blob.translation.add")} >
-                    <FontAwesomeIcon icon={faPlus} />
-                </Button>
             </InputGroup>
             {translationElements}
         </div>

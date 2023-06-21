@@ -1,5 +1,10 @@
 .tt-scriptwriter-page {
+    &:not(.tt-scriptwriter-page-active) {
+        opacity: 0.6;
+    }
+
     .tt-scriptwriter-page-header {
+        cursor: pointer;
         font-weight: bold;
         text-transform: uppercase;
         margin-top: 8px;

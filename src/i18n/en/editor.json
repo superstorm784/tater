@@ -26,10 +26,8 @@
     "actions": "Toggle blob editing actions",
     "delete": "Delete blob",
     "translation": {
-      "add": "Add translation",
       "placeholder": "{{locale}}",
-      "copy": "Copy translation to clipboard",
-      "delete": "Delete translation"
+      "copy": "Copy translation to clipboard"
     },
     "new": {
       "panel": "Add blob on next panel",

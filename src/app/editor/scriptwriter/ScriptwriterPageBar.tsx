@@ -8,12 +8,12 @@ import EditorContext from "../EditorContext";
 
 function ScriptwriterPageBar() {
     const { t } = useTranslation();
-    const { project, updateProject } = useContext(EditorContext);
+    const { project, setProject, focusedPage } = useContext(EditorContext);
 
     const pageElements = project?.manifest.pages.map(
         (p, i) => <option
             key={p.internalId}
-            value={i}
+            value={p.internalId}
         >{t("editor:page.heading.verbose", { page: i + 1, filename: p.imageName })}</option>
     ) ?? [];
     if (project?.manifest.pages.length === 0) {
@@ -26,7 +26,7 @@ function ScriptwriterPageBar() {
     const uploadPage = async () => {
         const file = await requestFiles({ accept: "image/*" });
         if (file) {
-            project?.addNewPage(file).then(updateProject);
+            project?.addNewPage(file).then(setProject);
         }
     }
 
@@ -35,7 +35,7 @@ function ScriptwriterPageBar() {
             <Button variant="primary">
                 <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
-            <Form.Select>
+            <Form.Select value={focusedPage?.internalId}>
                 {pageElements}
             </Form.Select>
             <Button variant="primary">
