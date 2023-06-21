@@ -2,5 +2,11 @@
     "discord.removeDetails": true,
     "discord.removeLowerDetails": true,
     "discord.removeRemoteRepository": true,
-    "discord.removeTimestamp": false
+    "discord.removeTimestamp": false,
+    "i18n-ally.defaultNamespace": "common",
+    "i18n-ally.localesPaths": [
+        "src/i18n"
+    ],
+    "i18n-ally.namespace": true,
+    "i18n-ally.keystyle": "nested"
 }

@@ -160,4 +160,18 @@ export default class Project {
         });
     }
 
+    async triggerDownload(): Promise<void> {
+        var anchor = document.createElement("a");
+        // document.body.appendChild(anchor);
+        // anchor.style.display = "none";
+        const data = await this.save();
+        const url = window.URL.createObjectURL(data);
+        anchor.href = url;
+        anchor.download = 
+            this.manifest.name.replace(/[^A-Z0-9\-_()+!?]/gi, "-") + ".tater";
+        anchor.click();
+        window.URL.revokeObjectURL(url);
+        // document.body.removeChild(anchor);
+    }
+
 }

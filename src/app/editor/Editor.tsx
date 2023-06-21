@@ -14,7 +14,7 @@ function Editor() {
             <Toolbar />
             {
                 project == null ?
-                    <EditorIntro /> :
+                    <EditorIntro setProject={setProject}/> :
                     <EditorMain />
             }
         </div>

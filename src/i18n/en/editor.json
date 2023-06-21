@@ -1,5 +1,15 @@
 {
-    "intro": {
-        "heading": "Hello, spud!"
+  "intro": {
+    "heading": "Hello, spud!",
+    "text": "Welcome to Tater, a collaborative image translation annotation tool.",
+    "instructions": "To start, you'll first need to create a project or load an existing project."
+  },
+  "actions": {
+    "file": {
+      "main": "File",
+      "new": "New project",
+      "load": "Load project",
+      "export": "Export"
     }
+  }
 }

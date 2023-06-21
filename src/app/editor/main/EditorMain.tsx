@@ -3,6 +3,7 @@ import usePreference from "../../../prefs/usePreference";
 import Scriptwriter from "../scriptwriter/Scriptwriter";
 import Splitter from "../splitter/Splitter";
 import Viewfinder from "../viewfinder/Viewfinder";
+import "./EditorMain.scss";
 
 function EditorMain() {
     const ratioMatcher = window.matchMedia("(min-aspect-ratio: 1/1)");
