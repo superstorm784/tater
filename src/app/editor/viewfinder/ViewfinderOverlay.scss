@@ -1,0 +1,22 @@
+.tt-viewfinder-overlay {
+    bottom: 0;
+    width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 10px auto;
+
+    > * {
+        margin: 0 4px;
+    }
+
+    .input-group {
+        flex: 0;
+        flex-wrap: nowrap;
+
+        select {
+            min-width: 4em;
+        }
+    }
+}

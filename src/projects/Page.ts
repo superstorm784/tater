@@ -41,7 +41,7 @@ export default class Page {
      */
     static create(manifest: Manifest, imageName: string, imageHash: string): Page {
         const p = new Page(manifest, imageName, imageHash);
-        p.blobs = [TextBlob.create(p, 1, 1, "")];
+        p.blobs = [];
         return p;
     }
 
@@ -49,6 +49,37 @@ export default class Page {
         this.manifest = manifest;
         this.imageName = imageName;
         this.imageHash = imageHash;
+    }
+
+    get previousPage(): Page | null {
+        const pageIndex = this.manifest.pages.indexOf(this);
+        return this.manifest.pages[pageIndex - 1] ?? null;
+    }
+
+    get nextPage(): Page | null {
+        const pageIndex = this.manifest.pages.indexOf(this);
+        return this.manifest.pages[pageIndex + 1] ?? null;
+    }
+
+    get panelCount(): number {
+        if (this.blobs.length === 0) return 0;
+        return Math.max(...this.blobs.map(b => b.panelNo));
+    }
+
+    /**
+     * Get the next blob number
+     * @returns [panel, blob]
+     */
+    get nextBlobNo(): [number, number] {
+        if (this.blobs.length === 0) return [ 1, 1 ];
+        const panelCount = this.panelCount;
+        return [
+            panelCount,
+            Math.max(
+                ...this.blobs.filter(b => b.panelNo === panelCount)
+                    .map(v => v.blobNo)
+            ) + 1
+        ];
     }
 
     /**

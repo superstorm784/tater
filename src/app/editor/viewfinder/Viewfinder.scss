@@ -1,10 +1,67 @@
+@import "~bootstrap/scss/functions"; 
+@import "~bootstrap/scss/variables";
+
+$active-box-color: $primary;
+$focused-box-color: adjust-hue($primary, -230deg);
+$idle-box-color: adjust-hue($primary, -180deg);
+
 .tt-viewfinder {
+    position: relative;
+    width: 100%;
     height: calc(100vh - var(--tt-toolbar-height));
     overflow: hidden;
-    
-    .tt-viewfinder-image {
-        height: 100%;
+
+    user-select: none;
+
+    > :not(.tt-viewfinder-image) {
+        position: absolute;
+    }
+
+    .tt-viewfinder-image,
+    .tt-viewfinder-dragoverlay,
+    .tt-viewfinder-boxoverlay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tt-viewfinder-dragoverlay,
+    .tt-viewfinder-boxoverlay {
+        top: 0;
+        left: 0;
         width: 100%;
-        object-fit: contain;
+        height: 100%;
+    }
+
+    .tt-viewfinder-boxoverlay-area {
+        position: relative;
+
+        .tt-viewfinder-boxoverlay-box {
+            cursor: pointer;
+            position: absolute;
+            border: 1px dashed $idle-box-color;
+            background-color: rgba($idle-box-color, 0.3);
+        }
+
+        .tt-viewfinder-boxoverlay-focused {
+            outline: none;
+            border: 1px solid $focused-box-color;
+            background-color: rgba($focused-box-color, 0.3);
+        }
+    }
+
+    .tt-viewfinder-dragoverlay[data-dragging="true"] {
+        z-index: 500;
+    }
+
+    .tt-viewfinder-dragoverlay-area {
+        position: relative;
+
+        .tt-viewfinder-dragoverlay-box {
+            position: absolute;
+            border: 1px dashed $active-box-color;
+            background-color: rgba($active-box-color, 0.5);
+            pointer-events: none;
+        }
     }
 }

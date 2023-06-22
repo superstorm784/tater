@@ -1,7 +1,7 @@
-import { faCopy, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ChangeEvent, useContext } from "react";
-import { Button, Dropdown, Form, InputGroup } from "react-bootstrap";
+import { Dropdown, Form, InputGroup } from "react-bootstrap";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import DropdownToggle from "react-bootstrap/esm/DropdownToggle";
@@ -9,12 +9,16 @@ import { useTranslation } from "react-i18next";
 import Page from "../../../projects/Page";
 import TextBlob from "../../../projects/TextBlob";
 import EditorContext from "../EditorContext";
-import "./ScriptwriterPage.scss";
 import ScriptwriterBlobText from "./ScriptwriterBlobText";
+import "./ScriptwriterPage.scss";
 
 function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, blob: TextBlob }) {
     const { t } = useTranslation();
-    const { project, setProject } = useContext(EditorContext);
+    const { setProject, focusedBlob, setFocusedBlob } = useContext(EditorContext);
+
+    const setFocused = () => {
+        setFocusedBlob!(blob);
+    }
 
     const updatePanelNo = (e: ChangeEvent<HTMLInputElement>) => {
         blob.panelNo = +e.target.value;
@@ -23,15 +27,6 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
     }
     const updateBlobNo = (e: ChangeEvent<HTMLInputElement>) => {
         blob.blobNo = +e.target.value;
-        page.sort();
-        setProject?.();
-    }
-    const addBlob = (nextPanel: boolean) => {
-        page.blobs.push(TextBlob.create(
-            page,
-            nextPanel ? blob.panelNo + 1 : blob.panelNo,
-            nextPanel ? 1 : blob.blobNo + 1
-        ));
         page.sort();
         setProject?.();
     }
@@ -51,7 +46,9 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
         )
     ];
 
-    return <div className="tt-scriptwriter-blob d-flex">
+    return <div className={`tt-scriptwriter-blob d-flex ${
+        focusedBlob === blob ? "tt-scriptwriter-blob-focused" : ""
+    }`} onFocus={setFocused}>
         <div>
             <InputGroup>
                 <Form.Control
@@ -67,14 +64,6 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
                     onChange={updateBlobNo}
                 />
             </InputGroup>
-            <div className="tt-scriptwriter-blob-new">
-                <Button title={t("editor:blob.new.panel")} onClick={addBlob.bind(null, true)}>
-                    <FontAwesomeIcon icon={faPlus} />
-                </Button>
-                <Button title={t("editor:blob.new.blob")} onClick={addBlob.bind(null, false)}>
-                    <FontAwesomeIcon icon={faPlus} />
-                </Button>
-            </div>
         </div>
         <div>{translationElements}</div>
         <Dropdown align="end" autoClose={"outside"}>

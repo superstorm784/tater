@@ -20,7 +20,10 @@
     },
     "empty": "No pages loaded",
     "upload": "Upload page",
-    "manage": "Manage pages"
+    "manage": "Manage pages",
+    "loading": "Loading...",
+    "noBlobs": "No text on this page.",
+    "draw": "Toggle text blob drawing"
   },
   "blob": {
     "original": "Original text ({{locale}})",
@@ -28,10 +31,6 @@
     "delete": "Delete blob",
     "translation": {
       "copy": "Copy translation to clipboard"
-    },
-    "new": {
-      "panel": "Add blob on next panel",
-      "blob": "Add blob on same panel"
     }
   }
 }

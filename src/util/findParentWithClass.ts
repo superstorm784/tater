@@ -4,7 +4,6 @@ export default function findParentWithClass(
     className: string
 ): Element | null {
     let pivot = element;
-    console.log(pivot);
     while (
         pivot.parentElement != null &&
         !pivot.classList.contains(className)

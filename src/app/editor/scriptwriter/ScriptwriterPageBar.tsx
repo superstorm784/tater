@@ -1,6 +1,6 @@
 import { faChevronLeft, faChevronRight, faImages, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
+import { ChangeEvent, useContext } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import requestFiles from "../../../util/requestFiles";
@@ -24,7 +24,7 @@ function ScriptwriterPageBar() {
     const pageElements = project?.manifest.pages.map(
         (p, i) => <option
             key={p.internalId}
-            value={p.internalId}
+            value={i}
         >{t("editor:page.heading.verbose", { page: i + 1, filename: p.imageName })}</option>
     ) ?? [];
     if (project?.manifest.pages.length === 0) {
@@ -44,6 +44,9 @@ function ScriptwriterPageBar() {
             setProject?.();
         }
     }
+    const goToPage = async (e: ChangeEvent<HTMLSelectElement>) => {
+        setFocusedPage?.(project?.manifest.pages[+e.target.value]);
+    }
     const previousPage = async () => {
         if (hasPreviousPage) {
             setFocusedPage?.(project?.manifest.pages[focusedPageNo! - 1]);
@@ -60,7 +63,7 @@ function ScriptwriterPageBar() {
             <Button variant="primary" disabled={!hasPreviousPage} onClick={previousPage}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
-            <Form.Select value={focusedPage?.internalId}>
+            <Form.Select value={focusedPage?.internalId} onChange={goToPage}>
                 {pageElements}
             </Form.Select>
             <Button variant="primary" disabled={!hasNextPage} onClick={nextPage}>

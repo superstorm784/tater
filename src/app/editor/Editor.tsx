@@ -6,10 +6,12 @@ import EditorIntro from './intro/EditorIntro';
 import EditorMain from './main/EditorMain';
 import Toolbar from './toolbar/Toolbar';
 import Page from '../../projects/Page';
+import TextBlob from '../../projects/TextBlob';
 
 function Editor() {
     const [project, setProject] = useState<Project | undefined>(undefined);
     const [focusedPage, setFocusedPage] = useState<Page | undefined>(undefined);
+    const [focusedBlob, setFocusedBlob] = useState<TextBlob | undefined>(undefined);
     const [lastChange, setLastChange] = useState<number>(Date.now());
 
     return <EditorContext.Provider value={{
@@ -24,7 +26,10 @@ function Editor() {
         focusedPage,
         focusedPageNo: focusedPage ? 
             project?.manifest.pages.indexOf(focusedPage) : undefined,
-        setFocusedPage
+        setFocusedPage,
+
+        focusedBlob,
+        setFocusedBlob
     }}>
         <div className="tt-editor">
             <Toolbar />

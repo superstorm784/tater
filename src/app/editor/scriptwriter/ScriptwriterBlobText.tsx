@@ -44,7 +44,6 @@ function ScriptwriterBlobText({ blob, locale }: { blob: TextBlob, locale: string
                     ?.querySelectorAll(".tt-scriptwriter-blob-text") ?? []
             );
 
-            console.log(blobs);
             const i = blobs.indexOf(parentBT);
             blobs[i + (next ? 1 : -1)]?.querySelector("input")?.focus();
         } else if (e.key === "PageDown" || e.key === "PageUp") {
@@ -68,7 +67,7 @@ function ScriptwriterBlobText({ blob, locale }: { blob: TextBlob, locale: string
     return <InputGroup
         className="tt-scriptwriter-blob-text"
         key={`blob-${blob.internalId}.${locale}`}
-        data-locale={locale}
+        data-locale={locale ?? projectLocale}
     >
         <InputGroup.Text>{
             localeEmoji(locale ?? projectLocale)

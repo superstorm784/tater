@@ -24,7 +24,9 @@ function ScriptwriterPage({ page, pageNo }: { page: Page, pageNo: number }) {
             t("editor:page.heading.plain", { page: pageNo, filename: page.imageName })
         }</div>
         <div className="tt-scriptwriter-blobgrid">
-            {blobs}
+            {blobs.length > 0 ? blobs : <div style={{margin: "8px"}}>
+                <i>{t("editor:page.noBlobs")}</i>
+            </div>}
         </div>
     </div>
 }
