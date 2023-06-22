@@ -34,7 +34,7 @@ export default class Project {
 
     loadErrors: Error[] = [];
 
-    static async loadFromBlob(blob: Blob): Promise<Project> {
+    static async loadFromBlob(blob: File | Blob): Promise<Project> {
         return new Promise((res, rej) => {
             const fr = new FileReader();
             fr.onload = async (e) => {

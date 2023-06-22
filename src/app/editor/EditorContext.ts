@@ -5,7 +5,8 @@ import TextBlob from "../../projects/TextBlob";
 
 export interface IEditorContext {
     project?: Project | null;
-    setProject?: (() => void) | null;
+    // Set the project, or refresh a loaded project
+    setProject?: ((project?: Project) => void) | null;
     lastChange: number;
     
     focusedPage?: Page;

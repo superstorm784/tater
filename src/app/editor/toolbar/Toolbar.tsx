@@ -5,10 +5,12 @@ import NavbarToggle from "react-bootstrap/esm/NavbarToggle";
 import { useTranslation } from "react-i18next";
 import "./Toolbar.scss";
 import EditorContext from "../EditorContext";
+import loadProject from "../func/loadProject";
 
 function Toolbar() {
     const { t } = useTranslation();
-    const { project } = useContext(EditorContext);
+    const context = useContext(EditorContext);
+    const { project } = context;
     const [ isHovering, setHover ] = useState(false);
 
     const onMouseEnter = () => setHover(true);
@@ -31,7 +33,9 @@ function Toolbar() {
             <Nav>
                 <NavDropdown title={t("editor:actions.file.main")} id="tt-toolbar-nav-file">
                     <NavDropdown.Item>{t("editor:actions.file.new")}</NavDropdown.Item>
-                    <NavDropdown.Item>{t("editor:actions.file.load")}</NavDropdown.Item>
+                    <NavDropdown.Item
+                        onClick={loadProject.bind(null, context)}
+                    >{t("editor:actions.file.load")}</NavDropdown.Item>
                     { (project !== null) && <>
                         <NavDropdown.Divider />
                         <NavDropdown.Item 

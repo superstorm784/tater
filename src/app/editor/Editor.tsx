@@ -16,10 +16,13 @@ function Editor() {
 
     return <EditorContext.Provider value={{
         project,
-        setProject: () => {
-            console.log("updating project!");
-            project?.manifest.bump();
-            setLastChange(project?.manifest.lastChange.getTime() ?? Date.now());
+        setProject: (_project?: Project) => {
+            if (_project) {
+                setProject(_project);
+            } else {
+                project?.manifest.bump();
+                setLastChange(project?.manifest.lastChange.getTime() ?? Date.now());
+            }
         },
         lastChange: lastChange,
 
@@ -35,7 +38,7 @@ function Editor() {
             <Toolbar />
             {
                 project == null ?
-                    <EditorIntro setProject={setProject}/> :
+                    <EditorIntro /> :
                     <EditorMain />
             }
         </div>
