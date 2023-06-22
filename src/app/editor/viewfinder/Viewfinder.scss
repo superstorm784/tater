@@ -1,0 +1,10 @@
+.tt-viewfinder {
+    height: calc(100vh - var(--tt-toolbar-height));
+    overflow: hidden;
+    
+    .tt-viewfinder-image {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+}

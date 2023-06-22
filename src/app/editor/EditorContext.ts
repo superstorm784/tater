@@ -8,6 +8,7 @@ export interface IEditorContext {
     lastChange: number;
     
     focusedPage?: Page;
+    focusedPageNo?: number;
     setFocusedPage?: (page?: Page) => void;
 }
 

@@ -9,7 +9,7 @@ function EditorIntro({ setProject }: { setProject: (project: Project) => void })
 
     const newProject = () => {
         setProject(new Project(
-            new Manifest("Untitled Project", "en")
+            new Manifest("Untitled Project", "ja")
         ));
     }
     

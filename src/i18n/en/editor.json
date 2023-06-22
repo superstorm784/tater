@@ -15,18 +15,18 @@
   "page": {
     "heading": {
       "verbose": "Page {{page}}: {{filename}}",
-      "plain": "(p. {{page}}) {{filename}}"
+      "plain": "(p. {{page}}) {{filename}}",
+      "caption": "Image for page {{page}}: {{filename}}"
     },
     "empty": "No pages loaded",
     "upload": "Upload page",
     "manage": "Manage pages"
   },
   "blob": {
-    "original": "Original text",
+    "original": "Original text ({{locale}})",
     "actions": "Toggle blob editing actions",
     "delete": "Delete blob",
     "translation": {
-      "placeholder": "{{locale}}",
       "copy": "Copy translation to clipboard"
     },
     "new": {

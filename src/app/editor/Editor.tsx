@@ -22,6 +22,8 @@ function Editor() {
         lastChange: lastChange,
 
         focusedPage,
+        focusedPageNo: focusedPage ? 
+            project?.manifest.pages.indexOf(focusedPage) : undefined,
         setFocusedPage
     }}>
         <div className="tt-editor">

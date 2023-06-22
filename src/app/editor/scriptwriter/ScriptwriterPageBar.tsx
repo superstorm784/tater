@@ -8,7 +8,18 @@ import EditorContext from "../EditorContext";
 
 function ScriptwriterPageBar() {
     const { t } = useTranslation();
-    const { project, setProject, focusedPage } = useContext(EditorContext);
+    const {
+        project,
+        setProject,
+        focusedPage,
+        focusedPageNo,
+        setFocusedPage
+    } = useContext(EditorContext);
+
+    const hasPreviousPage = focusedPageNo != null && 
+        focusedPageNo > 0;
+    const hasNextPage = focusedPageNo != null &&
+        focusedPageNo < (project?.manifest.pages.length ?? 0) - 1;
 
     const pageElements = project?.manifest.pages.map(
         (p, i) => <option
@@ -24,21 +35,35 @@ function ScriptwriterPageBar() {
     }
 
     const uploadPage = async () => {
-        const file = await requestFiles({ accept: "image/*" });
-        if (file) {
-            project?.addNewPage(file).then(setProject);
+        const files = await requestFiles({ accept: "image/*", multiple: true });
+        if (files) {
+            // Done synchronously to ensure file order.
+            for (const file of files) {
+                await project?.addNewPage(file);
+            }
+            setProject?.();
+        }
+    }
+    const previousPage = async () => {
+        if (hasPreviousPage) {
+            setFocusedPage?.(project?.manifest.pages[focusedPageNo! - 1]);
+        }
+    }
+    const nextPage = async () => {
+        if (hasNextPage) {
+            setFocusedPage?.(project?.manifest.pages[focusedPageNo! + 1]);
         }
     }
 
     return <div className="tt-scriptwriter-pagebar d-flex">
         <InputGroup className="flex-1 me-2">
-            <Button variant="primary">
+            <Button variant="primary" disabled={!hasPreviousPage} onClick={previousPage}>
                 <FontAwesomeIcon icon={faChevronLeft} />
             </Button>
             <Form.Select value={focusedPage?.internalId}>
                 {pageElements}
             </Form.Select>
-            <Button variant="primary">
+            <Button variant="primary" disabled={!hasNextPage} onClick={nextPage}>
                 <FontAwesomeIcon icon={faChevronRight} />
             </Button>
         </InputGroup>

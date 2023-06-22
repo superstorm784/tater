@@ -94,6 +94,16 @@ export default class Project {
     }
 
     /**
+     * 
+     * @param hash The image hash
+     * @returns The image blob, or null if the image does not exist.
+     */
+    async getImage(hash: string): Promise<Blob | null> {
+        return this.zip.folder("images")?.file(hash + ".bin")?.async("blob")
+            ?? null;
+    }
+
+    /**
      * @returns Image hashes
      */
     getImages(): string[] {
