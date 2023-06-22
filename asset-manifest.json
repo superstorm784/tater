@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/tater/static/css/main.7e02fda7.css",
+    "main.js": "/tater/static/js/main.feb5a0cf.js",
+    "static/js/757.2c94cdb2.chunk.js": "/tater/static/js/757.2c94cdb2.chunk.js",
+    "static/js/599.41b6f8af.chunk.js": "/tater/static/js/599.41b6f8af.chunk.js",
+    "static/js/328.98f0b1d4.chunk.js": "/tater/static/js/328.98f0b1d4.chunk.js",
+    "static/js/257.b0a2dd7e.chunk.js": "/tater/static/js/257.b0a2dd7e.chunk.js",
+    "index.html": "/tater/index.html",
+    "main.7e02fda7.css.map": "/tater/static/css/main.7e02fda7.css.map",
+    "main.feb5a0cf.js.map": "/tater/static/js/main.feb5a0cf.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7e02fda7.css",
+    "static/js/main.feb5a0cf.js"
+  ]
+}

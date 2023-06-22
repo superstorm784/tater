@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktater=self.webpackChunktater||[]).push([[257],{257:function(e){e.exports=JSON.parse('{"intro":{"heading":"\u304a\u3063\u306f\u3088\u3046\u30fc!"}}')}}]);
