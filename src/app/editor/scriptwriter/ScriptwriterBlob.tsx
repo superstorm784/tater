@@ -35,6 +35,10 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
         page.sort();
         setProject?.();
     }
+    const deleteBlob = () => {
+        page.blobs.splice(page.blobs.indexOf(blob), 1);
+        setProject?.();
+    }
 
     const translationElements = [
         <ScriptwriterBlobText 
@@ -78,8 +82,8 @@ function ScriptwriterBlob({ page, pageNo, blob }: { page: Page, pageNo: number, 
                 t("editor:blob.actions")
             } />
             <DropdownMenu>
-                <DropdownItem className="text-danger">
-                    <FontAwesomeIcon icon={faTrash} /> {t("editor:blob.delete")}
+                <DropdownItem className="text-danger" onClick={deleteBlob}>
+                    <FontAwesomeIcon icon={faTrash}/> {t("editor:blob.delete")}
                 </DropdownItem>
             </DropdownMenu>
         </Dropdown>
